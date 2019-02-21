@@ -20,13 +20,15 @@ exports.sendMeTheEmail = functions.https.onRequest((req, res) => {
   });
 });
 
-function sendMeTheEmail(name, email, message) {
+function sendMeTheEmail(name, email, subject, message) {
   const mailOptions = {
     from: "sender@server.com",
     to: gmailEmail
   };
 
   mailOptions.subject = `Message from your Contact Form ${subject}`;
-  mailOptions.text = `${name} ${email} ${message}`;
+  mailOptions.html = `<p><b>${name}</b></p>
+                      <p><b>${email}</b></p>
+                      <p><b>${message}</b></p>`;
   return mailTransport.sendMail(mailOptions);
 }

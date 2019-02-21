@@ -66,7 +66,7 @@ export default function ContactForm() {
           />
           <input
             name="subject"
-            placeholder="subject"
+            placeholder="Subject"
             value={subject}
             onChange={handleFormChange}
           />
