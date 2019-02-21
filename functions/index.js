@@ -15,12 +15,12 @@ const mailTransport = nodemailer.createTransport({
 exports.sendMeTheEmail = functions.https.onRequest((req, res) => {
   return cors(req, res, () => {
     const data = req.body;
-    sendWelcomeEmail(data.name, data.email, data.message);
+    sendMeTheEmail(data.name, data.email, data.message);
     res.send(200);
   });
 });
 
-function sendWelcomeEmail(name, email, message) {
+function sendMeTheEmail(name, email, message) {
   const mailOptions = {
     from: "sender@server.com",
     to: gmailEmail
