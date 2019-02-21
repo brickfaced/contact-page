@@ -15,7 +15,7 @@ const mailTransport = nodemailer.createTransport({
 exports.sendMeTheEmail = functions.https.onRequest((req, res) => {
   return cors(req, res, () => {
     const data = req.body;
-    sendMeTheEmail(data.name, data.email, data.message);
+    sendMeTheEmail(data.name, data.email, data.subject, data.message);
     res.send(200);
   });
 });
@@ -26,7 +26,7 @@ function sendMeTheEmail(name, email, message) {
     to: gmailEmail
   };
 
-  mailOptions.subject = "Message from your Contact Form";
+  mailOptions.subject = `Message from your Contact Form ${subject}`;
   mailOptions.text = `${name} ${email} ${message}`;
   return mailTransport.sendMail(mailOptions);
 }

@@ -4,6 +4,7 @@ import axios from "axios";
 export default function ContactForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
   const [submitState, setSubmitState] = useState(false);
 
@@ -14,6 +15,9 @@ export default function ContactForm() {
         break;
       case "email":
         setEmail(e.target.value);
+        break;
+      case "subject":
+        setSubject(e.target.value);
         break;
       case "message":
         setMessage(e.target.value);
@@ -31,6 +35,7 @@ export default function ContactForm() {
         {
           name: name,
           email: email,
+          subject: subject,
           message: message
         }
       );
@@ -57,6 +62,12 @@ export default function ContactForm() {
             name="email"
             placeholder="Email"
             value={email}
+            onChange={handleFormChange}
+          />
+          <input
+            name="subject"
+            placeholder="subject"
+            value={subject}
             onChange={handleFormChange}
           />
           <input
