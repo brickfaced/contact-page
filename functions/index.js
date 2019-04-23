@@ -15,20 +15,32 @@ const mailTransport = nodemailer.createTransport({
 exports.sendMeTheEmail = functions.https.onRequest((req, res) => {
   return cors(req, res, () => {
     const data = req.body;
-    sendMeTheEmail(data.name, data.email, data.subject, data.message);
+    sendMeTheEmail(data.name, data.email, data.message);
+    confirmationEmail(data.name, data.email);
     res.send(200);
   });
 });
 
-function sendMeTheEmail(name, email, subject, message) {
+function sendMeTheEmail(name, email, message) {
   const mailOptions = {
     from: "sender@server.com",
-    to: gmailEmail
+    to: "je.mendoza@live.com"
   };
 
-  mailOptions.subject = `Message from your Contact Form ${subject}`;
+  mailOptions.subject = `Message from your Contact Form`;
   mailOptions.html = `<p><b>${name}</b></p>
                       <p><b>${email}</b></p>
                       <p><b>${message}</b></p>`;
+  return mailTransport.sendMail(mailOptions);
+}
+
+function confirmationEmail(name, email) {
+  const mailOptions = {
+    from: "sender@server.com",
+    to: email
+  };
+
+  mailOptions.subject = "Thanks for contacting us";
+  mailOptions.html = `<p><b>Thank you for contacting us ${name}. We reach out to you ASAP.</b></p>`;
   return mailTransport.sendMail(mailOptions);
 }
